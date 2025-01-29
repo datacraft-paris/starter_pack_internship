@@ -6,7 +6,7 @@ Dans ce guide on va voir comment :
 - Mettre en place les différents outils 
 - Mettre en pratique les commandes importantes
 
-# 📚 Installation
+# 📚 Installation (tout exécuter en admin)
 
 ## Etape 1 (windows uniquement): Installer WSL via le powershell 
         wsl --install
@@ -36,6 +36,12 @@ Suivie de la commande
 
         source '$HOME/.cargo/env'
 
+(si l'erreur "No such file or directory" s'affiche, executer la commande suivante et ressayer :
+```
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+```
+)
+
 Pour installer n'importe quel module python, on prendra l'habitude de taper : 
 
         uv add module_python
@@ -54,7 +60,7 @@ Puis dans la section `Extensions`, installez quelques extensions très utiles po
 - Jupyter
 - Remote - SSH (obligatoire pour Windows)
 - WSL (obligatoire pour Windows)
-- autoDocstrings
+- autoDocstring
 - Trunk
 
 ## Etape 4 : Installer Python
