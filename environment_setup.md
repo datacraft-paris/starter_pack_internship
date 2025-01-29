@@ -34,7 +34,7 @@ Il suffit ensuite de taper la commande :
 
 Suivie de la commande
 
-        source '$HOME/.cargo/env'
+        source '$HOME/.local/bin/env'
 
 (si l'erreur "No such file or directory" s'affiche, executer la commande suivante et ressayer :
 ```
