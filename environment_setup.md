@@ -42,6 +42,10 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
 )
 
+Cette commande permet d'initialiser un projet et de configurer automatiquement un environnement de travail adapté :
+
+        uv init
+
 Pour installer n'importe quel module python, on prendra l'habitude de taper : 
 
         uv add module_python
