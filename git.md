@@ -58,6 +58,75 @@ Pour vérifier la configuration :
 ```bash
 git config --list
 ```
+Voici la section complète à ajouter dans ton README pour configurer la clé SSH avec GitHub, prête à être copiée :
+
+---
+
+### 🔑 Configurer une clé SSH pour GitHub
+
+1. **Générer une clé SSH :**
+
+   Si tu n'as pas encore de clé SSH, tu peux en générer une en exécutant la commande suivante dans ton terminal :
+
+   ```bash
+   ssh-keygen -t rsa -b 4096 -C "tonemail@example.com"
+   ```
+
+   Remplace `tonemail@example.com` par ton adresse email GitHub. Ensuite, appuie sur **Entrée** pour accepter l'emplacement par défaut pour la clé. Si tu souhaites, tu peux également définir un mot de passe pour ajouter un niveau de sécurité supplémentaire.
+
+2. **Ajouter la clé SSH à l'agent SSH :**
+
+   Après avoir généré la clé SSH, il faut l'ajouter à l'agent SSH pour pouvoir l'utiliser automatiquement. Exécute les commandes suivantes :
+
+   ```bash
+   eval "$(ssh-agent -s)"
+   ```
+
+   Puis, ajoute la clé privée à l'agent SSH :
+
+   ```bash
+   ssh-add ~/.ssh/id_rsa
+   ```
+
+3. **Copier la clé publique :**
+
+   Pour copier ta clé publique, exécute la commande suivante :
+
+   ```bash
+   cat ~/.ssh/id_rsa.pub
+   ```
+
+   Cela affichera ta clé publique. Sélectionne et copie le texte complet qui commence par `ssh-rsa` et finit par ton email.
+
+4. **Ajouter la clé publique à GitHub :**
+
+   Maintenant, il faut ajouter la clé publique à ton compte GitHub. Suis ces étapes :
+   
+   - Ouvre GitHub dans ton navigateur et connecte-toi à ton compte.
+   - Va dans **Settings** (paramètres) via l'icône en haut à droite de la page.
+   - Dans le menu de gauche, sélectionne **SSH and GPG keys**.
+   - Clique sur **New SSH key**.
+   - Donne un titre à ta clé, puis colle la clé publique que tu viens de copier dans le champ prévu à cet effet.
+   - Clique sur **Add SSH key** pour finaliser l'ajout.
+
+5. **Tester la connexion SSH avec GitHub :**
+
+   Pour vérifier que tout fonctionne correctement, teste la connexion avec GitHub en exécutant la commande suivante :
+
+   ```bash
+   ssh -T git@github.com
+   ```
+
+   Si la configuration est correcte, tu devrais voir un message du type :
+
+   ```
+   Hi ton_username! You've successfully authenticated, but GitHub does not provide shell access.
+   ```
+
+---
+
+Avec cette section, tu devrais être prêt à configurer ta clé SSH pour GitHub et à l'utiliser pour authentifier tes connexions sans avoir à entrer ton mot de passe à chaque fois.
+
 
 ---
 
@@ -130,12 +199,17 @@ Puis continue avec les commandes de base (`git add`, `git commit`, `git push`...
 git init
 ```
 
+> ℹ️ **Note :** si vous utilisez `uv init` pour initialiser votre projet Python, un dépôt Git est automatiquement créé.
+
 ### 🔄 Cloner un dépôt existant
 ```bash
 git clone url_du_repo
 ```
-#### Vous trouverez l'URL du dépot en appuyant sur "<>code" en vert (copiez celui en HTTPS)
-![Vous trouverez l'URL du dépot en appuyant sur "<>code" en vert (copiez celui en HTTPS)](images/URL_git.PNG)
+#### Vous trouverez l'URL (**HTTPS** ou **SSH**) du dépot en appuyant sur `<> code` en vert. 
+
+> ℹ️ **Note :** Il faut toujours clone à partir de l'URL **SSH** !
+
+![Vous trouverez l'URL du dépot en appuyant sur "<>code" en vert. Il faut toujours clone avec l'URL SSH](images/URL_git.PNG)
 
 ### 📑 Vérifier l’état du projet
 ```bash
@@ -302,6 +376,9 @@ A---B---C---D'---E' (feature)
 git checkout -b prenom/feature
 ```
 (par exemple `Paul/Datacrafter`)
+
+> ℹ️ **Note :** Lorsque vous créez une nouvelle branche, elle hérite du contenu de la branche depuis laquelle vous l'avez lancée. Par exemple, si vous créez une branche depuis `main`, elle contiendra toutes les dernières modifications de `main` à ce moment-là (c'est généralement ce qu'on fait).
+
 
 2. **Travailler et commiter dessus régulièrement**
 
