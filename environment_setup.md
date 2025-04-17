@@ -40,7 +40,25 @@ Suivie de la commande
 ```
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
+si l'erreur persiste, essayer de remplacer le `$HOME` par `$home/" suivi du nom de votre session dans la commande suivante:
+```
+        source '$home/nom_session/.local/bin/env'
+```
 )
+
+Cette commande sert à créer un nouveau projet Python avec tout ce qu’il faut pour bien commencer. Elle crée automatiquement les fichiers de base et prépare l’environnement de travail, à condition d’être dans un dossier vide quand on l’exécute :
+
+        uv init
+
+Cependant, en pratique il sera plus pratique d'utiliser plutôt la commande suivante pour créer un projet directement dans un dossier avec le nom de votre choix:
+
+        uv init mon_projet
+
+
+En rajoutant `--lib` pour créer le projet depuis la racine avec une structuure src/mon_projet/ dans le dossier mon_projet:
+
+        uv init mon_projet --lib
+
 
 Pour installer n'importe quel module python, on prendra l'habitude de taper : 
 
