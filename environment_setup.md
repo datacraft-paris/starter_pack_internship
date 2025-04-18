@@ -40,9 +40,9 @@ Suivie de la commande
 ```
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
-si l'erreur persiste, essayer de remplacer le `$HOME` par `$home/" suivi du nom de votre session dans la commande suivante:
+si l'erreur persiste, essayer de remplacer le `$HOME` par `home/" suivi du nom de votre session dans la commande suivante:
 ```
-        source '$home/nom_session/.local/bin/env'
+        source 'home/nom_session/.local/bin/env'
 ```
 )
 
