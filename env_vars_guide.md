@@ -17,7 +17,7 @@ Ce guide explique comment utiliser des **variables d’environnement** pour gér
 Ajoutez la dépendance dans votre projet :
 
 ```bash
-pip install python-dotenv
+uv add python-dotenv
 ```
 
 ---

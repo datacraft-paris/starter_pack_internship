@@ -6,8 +6,11 @@ Ce dépôt a pour but d'accueillir et de donner les bonnes pratiques aux nouveau
 
 1. [Mise en place de l'environnement](./environment_setup.md)
 2. [Bonnes pratiques de code](./code_best_practices.md)
-3. [Git & GitHub](./git.md)
-4. [Programmation Orientée Objet](./oop.md)
+3. [Variables d'environnement](./env_vars_guide.md)
+4. [Git & GitHub](./git.md)
+5. [Pre commit](./pre_commit.md)
+6. [Decorators](./decorators.md)
+7. [Programmation Orientée Objet](./oop.md)
 
 ![starterpack](images/illustration_first_page.png)
 
