@@ -1,30 +1,30 @@
-# 📖 Guide Git & GitHub 
+# Guide Git & GitHub
 
 Ce document explique les bases de **Git** et **GitHub**, leurs objectifs, les bonnes pratiques, les commandes essentielles et un workflow type. Parfait pour débuter et structurer son travail en développement.
 
 ---
 
-## 📌 Qu'est-ce que Git et GitHub ?
+## Qu'est-ce que Git et GitHub ?
 
 - **Git** : logiciel de gestion de versions décentralisé. Il permet de suivre l'évolution d’un projet, collaborer et gérer plusieurs versions du code.
 - **GitHub** : plateforme en ligne pour héberger des dépôts Git, collaborer en équipe et versionner le code à distance.
 
 ---
 
-## 🎯 Pourquoi utiliser Git et GitHub ?
+## Pourquoi utiliser Git et GitHub ?
 
 - Sauvegarder les différentes versions du projet.
 - Collaborer à plusieurs sans écraser le travail des autres.
 - Travailler sur des fonctionnalités séparées via les branches.
 - Publier son code et le partager facilement.
 
-## 🛠️ Installation et configuration de Git sous WSL et Visual Studio Code
+## Installation et configuration de Git sous WSL et Visual Studio Code
 
 Avant de commencer à utiliser Git et GitHub, voici comment l’installer et le configurer correctement sous **WSL (Windows Subsystem for Linux)**, et l’utiliser depuis **Visual Studio Code**.
 
 ---
 
-### 📥 1. Installer Git sous WSL
+### 1. Installer Git sous WSL
 
 Dans ton terminal WSL (Ubuntu, Debian...) :
 
@@ -101,7 +101,7 @@ Voici la section complète à ajouter dans ton README pour configurer la clé SS
 4. **Ajouter la clé publique à GitHub :**
 
    Maintenant, il faut ajouter la clé publique à ton compte GitHub. Suis ces étapes :
-   
+
    - Ouvre GitHub dans ton navigateur et connecte-toi à ton compte.
    - Va dans **Settings** (paramètres) via l'icône en haut à droite de la page.
    - Dans le menu de gauche, sélectionne **SSH and GPG keys**.
@@ -130,7 +130,7 @@ Avec cette section, tu devrais être prêt à configurer ta clé SSH pour GitHub
 
 ---
 
-### 📝 3. Configurer VS Code comme éditeur par défaut pour Git
+### 3. Configurer VS Code comme éditeur par défaut pour Git
 
 Pour que Git ouvre les messages de commit ou les conflits dans **Visual Studio Code** :
 
@@ -140,7 +140,7 @@ git config --global core.editor "code --wait"
 
 ---
 
-### 📦 4. Installer l’extension GitHub sur Visual Studio Code
+### 4. Installer l’extension GitHub sur Visual Studio Code
 
 Dans Visual Studio Code :
 - Va dans l'onglet Extensions (ou `Ctrl+Shift+X`)
@@ -149,7 +149,7 @@ Dans Visual Studio Code :
 
 ---
 
-### 📁 5. Ouvrir ton projet WSL dans Visual Studio Code
+### 5. Ouvrir ton projet WSL dans Visual Studio Code
 
 Dans le terminal WSL :
 1. Place-toi dans ton dossier de projet :
@@ -162,12 +162,12 @@ cd /chemin/vers/ton/projet
 code .
 ```
 
-Le `.` signifie que VS Code ouvrira le dossier courant.  
+Le `.` signifie que VS Code ouvrira le dossier courant.
 ⚠️ Il faut que **l'extension "Remote - WSL"** soit installée dans VS Code pour que ça fonctionne.
 
 ---
 
-### 📄 6. Initialiser un dépôt Git dans ton projet
+### 6. Initialiser un dépôt Git dans ton projet
 
 Une fois dans ton projet :
 
@@ -179,7 +179,7 @@ Puis continue avec les commandes de base (`git add`, `git commit`, `git push`...
 
 ---
 
-## 📖 Résumé des prérequis et installations
+## Résumé des prérequis et installations
 
 | Outil                  | Commande / Action                                        |
 |:----------------------|:---------------------------------------------------------|
@@ -192,65 +192,65 @@ Puis continue avec les commandes de base (`git add`, `git commit`, `git push`...
 
 ---
 
-## 🚀 Commandes de base à connaître
+## Commandes de base à connaître
 
-### 📦 Initialiser un projet Git
+### Initialiser un projet Git
 ```bash
 git init
 ```
 
 > ℹ️ **Note :** si vous utilisez `uv init` pour initialiser votre projet Python, un dépôt Git est automatiquement créé.
 
-### 🔄 Cloner un dépôt existant
+### Cloner un dépôt existant
 ```bash
 git clone url_du_repo
 ```
-#### Vous trouverez l'URL (**HTTPS** ou **SSH**) du dépot en appuyant sur `<> code` en vert. 
+#### Vous trouverez l'URL (**HTTPS** ou **SSH**) du dépot en appuyant sur `<> code` en vert.
 
 > ℹ️ **Note :** Il faut toujours clone à partir de l'URL **SSH** !
 
 ![Vous trouverez l'URL du dépot en appuyant sur "<>code" en vert. Il faut toujours clone avec l'URL SSH](images/URL_git.PNG)
 
-### 📑 Vérifier l’état du projet
+### Vérifier l’état du projet
 ```bash
 git status
 ```
 
-### ➕ Ajouter des fichiers à l’index
+### Ajouter des fichiers à l’index
 ```bash
 git add nom_du_fichier
 # ou tout le dossier :
 git add .
 ```
 
-### 📌 Valider les changements (commit)
+### Valider les changements (commit)
 ```bash
 git commit -m "Message clair et descriptif"
 ```
 
-### 📤 Envoyer les modifications sur GitHub
+### Envoyer les modifications sur GitHub
 ```bash
 git push
 ```
 
-### 📥 Récupérer les modifications du dépôt distant
+### Récupérer les modifications du dépôt distant
 ```bash
 git pull
 ```
 
-### 📝 Voir l’historique des commits
+### Voir l’historique des commits
 ```bash
 git log
 ```
 
-### 📝 Renommer un fichier
+### Renommer un fichier
 ```bash
 git mv ancien_nom nouveau_nom
 ```
 
 ---
 
-## 📂 Exemple de fichier `.gitignore`
+## Exemple de fichier `.gitignore`
 
 Ce fichier permet d’ignorer certains fichiers ou dossiers lors des commits.
 
@@ -269,7 +269,7 @@ __pycache__/
 
 ---
 
-## 🌱 Bonnes pratiques à respecter
+## Bonnes pratiques à respecter
 
 - Écrire des **messages de commit explicites**.
 - Utiliser des **branches pour chaque fonctionnalité**.
@@ -280,15 +280,15 @@ __pycache__/
 
 ---
 
-## 📌 Notions utiles : `origin`, `main`, `--verbose`
+## Notions utiles : `origin`, `main`, `--verbose`
 
-### 🔗 `origin`
-C'est le **nom par défaut** donné à l'URL du dépôt distant quand tu le lies à ton projet local.  
+### `origin`
+C'est le **nom par défaut** donné à l'URL du dépôt distant quand tu le lies à ton projet local.
 Par exemple, quand tu tapes :
 ```bash
 git remote add origin https://github.com/toncompte/ton-projet.git
 ```
-`origin` désigne cette adresse.  
+`origin` désigne cette adresse.
 Tu peux vérifier ça avec :
 ```bash
 git remote -v
@@ -296,54 +296,54 @@ git remote -v
 
 ---
 
-### 🌳 `main`
-C'est le nom de la **branche principale** du projet.  
-Avant, c'était souvent `master`, mais par convention et pour des raisons inclusives, on utilise maintenant `main`.  
+### `main`
+C'est le nom de la **branche principale** du projet.
+Avant, c'était souvent `master`, mais par convention et pour des raisons inclusives, on utilise maintenant `main`.
 C’est sur cette branche que le code validé et stable est stocké.
 
 ---
 
-### 📣 Option `--verbose`
-Permet d’obtenir des informations plus détaillées lors de certaines commandes Git.  
+### Option `--verbose`
+Permet d’obtenir des informations plus détaillées lors de certaines commandes Git.
 Par exemple :
 ```bash
 git pull --verbose
 git push --verbose
 ```
-➡️ Te montre précisément quels fichiers et branches sont affectés.
+Te montre précisément quels fichiers et branches sont affectés.
 
 ---
 
-## 🔀 Merge vs Rebase : comprendre la différence
+## Merge vs Rebase : comprendre la différence
 
-### 📌 `git merge`
-Permet de **fusionner deux branches** en une seule en conservant l’historique des deux.  
+### `git merge`
+Permet de **fusionner deux branches** en une seule en conservant l’historique des deux.
 Exemple :
 ```bash
 git checkout main
 git merge feature-branch
 ```
-➡️ Produit un **commit de merge** qui relie les deux historiques.
+Produit un **commit de merge** qui relie les deux historiques.
 
-✔️ Avantage : historique clair sur qui a fusionné quoi et quand.
+Avantage : historique clair sur qui a fusionné quoi et quand.
 
 ---
 
-### 📌 `git rebase`
-Permet de **réappliquer des commits d’une branche sur une autre**, en modifiant leur historique.  
+### `git rebase`
+Permet de **réappliquer des commits d’une branche sur une autre**, en modifiant leur historique.
 Exemple :
 ```bash
 git checkout feature-branch
 git rebase main
 ```
-➡️ Replace les commits de `feature-branch` au-dessus de ceux de `main`.
+Replace les commits de `feature-branch` au-dessus de ceux de `main`.
 
-✔️ Avantage : historique plus linéaire et propre.  
-⚠️ Attention : à éviter sur des branches partagées avec d’autres.
+Avantage : historique plus linéaire et propre.
+Attention : à éviter sur des branches partagées avec d’autres.
 
 ---
 
-### 📊 Schéma : Merge vs Rebase
+### Schéma : Merge vs Rebase
 
 ```
 Avant :
@@ -368,9 +368,9 @@ A---B---C---D'---E' (feature)
 
 ---
 
-## 📝 Valider son code avant un push définitif (travail en équipe)
+## Valider son code avant un push définitif (travail en équipe)
 
-### ✅ Process recommandé :
+### Process recommandé :
 1. **Créer sa branche perso**
 ```bash
 git checkout -b prenom/feature
@@ -386,7 +386,7 @@ git checkout -b prenom/feature
 ```bash
 git pull origin main
 ```
-ou  
+ou
 ```bash
 git fetch origin
 git merge origin/main
@@ -401,9 +401,9 @@ git merge origin/main
 
 ---
 
-## 🌱 Créer plusieurs branches pour chaque personne
+## Créer plusieurs branches pour chaque personne
 
-### 📌 Convention :
+### Convention :
 Chacun crée sa branche à partir de `main` avec un nom clair :
 ```bash
 git checkout main
@@ -415,11 +415,11 @@ Par exemple :
 - `Alexandre/Datacrafter`
 - `paul/Datacrafter`
 
-➡️ Permet de travailler en parallèle sans conflit et d’organiser les contributions.
+Permet de travailler en parallèle sans conflit et d’organiser les contributions.
 
 ---
 
-## ✅ Résumé commandes pour branches et validation collaborative
+## Résumé commandes pour branches et validation collaborative
 
 ```bash
 # Créer et basculer sur une nouvelle branche
@@ -446,7 +446,7 @@ git branch -d prenom/feature
 ```
 ---
 
-## 📖 Exemple de workflow éducatif
+## Exemple de workflow éducatif
 
 ```bash
 # Initialiser un projet local
@@ -467,7 +467,7 @@ git push -u origin main
 
 ---
 
-## 📚 Ressources utiles
+## Ressources utiles
 
 - [Documentation Git](https://git-scm.com/doc)
 - [GitHub Docs](https://docs.github.com/)
@@ -475,14 +475,14 @@ git push -u origin main
 
 ---
 
-## 💡 Conclusion
+## Conclusion
 
 Git et GitHub sont essentiels pour bien structurer un projet et collaborer efficacement. En appliquant ces bases et bonnes pratiques, vous gagnerez en rigueur et en organisation dans vos projets de développement.
 
 ---
 
-## 🫵 A vous de jouer
+## A vous de jouer
 
 Parce qu'il n'y a rien de mieux pour apprendre l'informatique que de coder par soi-même, vous retrouverez dans le dossier `git_exercise` un fichier python `example_git.py` que vous devrez simplement modifier en rentrant votre prénom. Une fois cette modification effectué, essayez de push la modification sur github !
 
-Il vous faudra donc préalablement télécharger ce répertoire git dans un dossier directement sur votre pc à l'aide des commandes définit au-dessus ! 
+Il vous faudra donc préalablement télécharger ce répertoire git dans un dossier directement sur votre pc à l'aide des commandes définit au-dessus !

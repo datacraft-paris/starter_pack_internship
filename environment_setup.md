@@ -2,13 +2,13 @@
 
 
 Dans ce guide on va voir comment :
-- Mettre en place son environnement Linux 
-- Mettre en place les différents outils 
+- Mettre en place son environnement Linux
+- Mettre en place les différents outils
 - Mettre en pratique les commandes importantes
 
-# 📚 Installation (tout exécuter en admin)
+# Installation (tout exécuter en admin)
 
-## Etape 1 (windows uniquement): Installer WSL via le powershell 
+## Etape 1 (windows uniquement): Installer WSL via le powershell
         wsl --install
 
 Cela permet d’installer une plateforme de machine virtuelle, un sous-système Windows pour Linux et Ubuntu. (Ne pas fermer la console)
@@ -60,7 +60,7 @@ En rajoutant `--lib` pour créer le projet depuis la racine avec une structuure 
         uv init mon_projet --lib
 
 
-Pour installer n'importe quel module python, on prendra l'habitude de taper : 
+Pour installer n'importe quel module python, on prendra l'habitude de taper :
 
         uv add module_python
 
@@ -112,16 +112,16 @@ Chercher la ligne contenant (git) et ajouter, en tapant sur la touche `i` (inser
 
 
 
-# 📚 Les commandes et bonnes pratiques linux
+# Les commandes et bonnes pratiques linux
 
-## Création de ses propres alias quand on est amené à taper souvent les mêmes commandes : 
+## Création de ses propres alias quand on est amené à taper souvent les mêmes commandes :
 
         vim .bashrc ou/zshrc #pour créer mes alias
         i (insert)
         alias mon_alias='la commande bash'
         esc (echap)
         :q #pour quitter simplement
-        : wq # svg des modifs 
+        : wq # svg des modifs
         Puis relancer le termianl ou faire source $HOME/.bashrc ou/zshrc
 
 ## Les classiques:
@@ -129,15 +129,15 @@ Chercher la ligne contenant (git) et ajouter, en tapant sur la touche `i` (inser
         ls # pour voir tout les dossiers du repertoire courant
         cd nom_repertoire # pour accéder au repertoire souhaiter
         cd - # pour revenir au user
-        cd .. # pour remonter d'un dossier 
+        cd .. # pour remonter d'un dossier
         cd / # pour revenir à la racine
-        mkdir nom_dossier_a_creer # pour créer un dossier 
+        mkdir nom_dossier_a_creer # pour créer un dossier
         clear # nettoyer l'historique de commandes
         pwd # pour afficher le chemin du répertoire dans lequel on se trouve
         ________________________________
         sudo # pour les installations importantes avec les droits admin
         # Demande toujours un mdp
-        exemple : sudo apt install lib 
+        exemple : sudo apt install lib
 pour installer le package `lib`
 
         __________________________________
@@ -149,44 +149,44 @@ pour installer le package `lib`
         mv previous/path new/path # permet de déplacer ou de renommer des fichiers et des dossiers
 
 
-        git clone url_du_projet_à_cloner # Récupérer l'entièreté d'un repo 
+        git clone url_du_projet_à_cloner # Récupérer l'entièreté d'un repo
         exemple : git clone https://github.com/vienneraphael/scalene-codecarbon-workshop
 
 
 `CTRL+%` pour ouvrir une console linux directement dans vs code
 
-sur mac: 
+sur mac:
 ```
-CTRL + ` 
+CTRL + `
 ```
 
         code . # pour lancer vs code à partir du répertoire dans lequel on se trouve
 
 
-## Créer un environnement virtuel de travail 
+## Créer un environnement virtuel de travail
 
 avec uv: `uv venv` ou `uv sync`
 
-si on a fait `uv venv` il faut activer l'environnement: `source .venv/bin/activate` 
+si on a fait `uv venv` il faut activer l'environnement: `source .venv/bin/activate`
 
-## Si une commande n'est plus reconnue 
+## Si une commande n'est plus reconnue
     #Dans le powershell
     wsl --shutdown
     #Puis dans le powershell
     wsl
-    #Revenir dans le terminal linux  
+    #Revenir dans le terminal linux
 
 
 ## Pour créer une clé ssh
-    # exemple pour générez une clef ssh sur windows ou linux 
+    # exemple pour générez une clef ssh sur windows ou linux
     ssh-keygen -t rsa -b 4096 -C "votre_adresse_mail"
     cat .ssh/id_rsa_datacraft.pub
 
 puis, copier-coller cette clé et l'ajouter sur github.
 
-## Pour obtenir sa clé ssh  
+## Pour obtenir sa clé ssh
     cat .ssh/id_rsa.pub
 
-# Source : 
+# Source :
 
 https://juliend.github.io/linux-cheatsheet/
