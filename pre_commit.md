@@ -80,19 +80,15 @@ Cela analyse tout ton projet et corrige automatiquement tous les problèmes dét
 
 ### Installer Pre-Commit
 
-```bash
-uv tool pre-commit
-```
-
-Puis dans votre projet, installez les hooks :
+Pour installer Pre-Commit dans votre projet, utilisez la commande suivante :
 
 ```bash
-pre-commit install
+uv add pre-commit
 ```
 
-Cela configure automatiquement les vérifications avant chaque `git commit`.
+### Configurer les hooks pour Black et Ruff : exemple de fichier `.pre-commit-config.yaml`
 
-### Exemple de fichier `.pre-commit-config.yaml`
+Avant de pouvoir utiliser Black et Ruff avec Pre-Commit, il est nécessaire de configurer les hooks correspondants dans le fichier `.pre-commit-config.yaml`.
 
 Créez un fichier `.pre-commit-config.yaml` à la racine de votre projet :
 
@@ -127,6 +123,20 @@ pre-commit install
 > Après cette configuration, chaque tentative de commit lancera automatiquement Black et Ruff. Si des erreurs sont détectées, le commit sera bloqué jusqu'à correction.
 
 ---
+### Forcer un commit sans exécuter les hooks Pre-Commit
+
+Dans certains cas, il peut arriver qu'une correction automatique effectuée par Pre-Commit (par exemple, une modification imposée par Black ou Ruff) ne corresponde pas à vos attentes. Si vous souhaitez tout de même effectuer un commit sans exécuter les hooks, vous pouvez utiliser l'option suivante :
+
+```bash
+git commit -m "Votre message de commit" --no-verify
+```
+
+#### Explications :
+- **`--no-verify`** : Cette option permet de bypasser tous les hooks configurés (Pre-Commit, linting, tests, etc.) et de forcer le commit.
+- **À noter** : Cette commande doit être utilisée avec précaution et uniquement dans des cas exceptionnels, car elle désactive toutes les protections automatiques mises en place pour garantir la qualité du code.
+
+---
+
 
 # Happy coding! 🚀
 
