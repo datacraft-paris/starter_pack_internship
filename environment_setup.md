@@ -32,33 +32,35 @@ Il suffit ensuite de taper la commande :
 
         curl -LsSf https://astral.sh/uv/install.sh | sh
 
-Suivie de la commande
+Suivie de la commande :
 
         source '$HOME/.local/bin/env'
 
+⚠️ Une fois l'installation faite, il est **fortement conseillé de redémarrer le terminal** avant de continuer.  
+Vous pouvez soit fermer et rouvrir le terminal, soit utiliser la commande suivante pour recharger l’environnement :
+
+        exec $SHELL
+
 (si l'erreur "No such file or directory" s'affiche, executer la commande suivante et ressayer :
-```
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-```
-si l'erreur persiste, essayer de remplacer le `$HOME` par `home/" suivi du nom de votre session dans la commande suivante:
-```
+
+        curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+si l'erreur persiste, essayer de remplacer le `$HOME` par `home/` suivi du nom de votre session dans la commande suivante :
+
         source 'home/nom_session/.local/bin/env'
-```
 )
 
 Cette commande sert à créer un nouveau projet Python avec tout ce qu’il faut pour bien commencer. Elle crée automatiquement les fichiers de base et prépare l’environnement de travail, à condition d’être dans un dossier vide quand on l’exécute :
 
         uv init
 
-Cependant, en pratique il sera plus pratique d'utiliser plutôt la commande suivante pour créer un projet directement dans un dossier avec le nom de votre choix:
+Cependant, en pratique il sera plus pratique d'utiliser plutôt la commande suivante pour créer un projet directement dans un dossier avec le nom de votre choix :
 
         uv init mon_projet
 
-
-En rajoutant `--lib` pour créer le projet depuis la racine avec une structuure src/mon_projet/ dans le dossier mon_projet:
+En rajoutant `--lib` pour créer le projet depuis la racine avec une structure src/mon_projet/ dans le dossier mon_projet :
 
         uv init mon_projet --lib
-
 
 Pour installer n'importe quel module python, on prendra l'habitude de taper :
 
@@ -66,13 +68,32 @@ Pour installer n'importe quel module python, on prendra l'habitude de taper :
 
 Le lien envoie vers la documentation (n'hésitez pas à la consulter).
 
+
 ## Etape 3 : Installer VSCode
+
+### Sous Ubuntu (WSL ou Linux classique)
 
         sudo apt install code --classic
 
-Sur windows, il faut également télécharger la version de bureau sur le site: https://code.visualstudio.com/
+### Sous macOS
 
-Puis dans la section `Extensions`, installez quelques extensions très utiles pour la suite:
+Si vous êtes sur macOS, la commande `apt` n'existe pas. Vous devez utiliser [Homebrew](https://brew.sh/) si ce n’est pas déjà fait :
+
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+Puis installez VSCode avec la commande :
+
+        brew install --cask visual-studio-code
+
+### Sous Windows
+
+Sur Windows, il faut télécharger la version de bureau sur le site officiel :
+
+        https://code.visualstudio.com/
+
+---
+
+Une fois VSCode installé, ouvrez-le et allez dans la section `Extensions`, puis installez les extensions suivantes, très utiles pour la suite :
 
 - Python
 - Jupyter
