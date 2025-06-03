@@ -34,48 +34,50 @@ Chaque **instance** d'une classe possède ses propres attributs, ce qui permet �
 Quand on crée un objet, Python appelle automatiquement une méthode spéciale appelée `__init__`.  
 C’est ici que l’on initialise les attributs propres à chaque instance.
 
-Exemple avec la classe `Event` :
-
+**Exemple avec la classe `Event` :**
+```py
         class Event:
-            def __init__(self, date: str, lieu: str, participants: list[str], theme: str, id_: int):
+            def __init__(self, date: str, location: str, participants: list[str], topic: str, event_id: int):
                 self.date = date
-                self.lieu = lieu
+                self.location = location
                 self.participants = participants
-                self.theme = theme
-                self.id = id_
+                self.topic = topic
+                self.event_id = event_id
 
         e = Event("2025-06-15", "Paris", ["Alice", "Bob"], "IA et société", 1)
+```
 
 ---
 
-## Encapsulation et convention `_attribut`
+## Encapsulation et convention `_attribute`
 
 Par convention, un attribut dont le nom commence par un underscore (`_`) est considéré comme **protégé**.  
 Cela signifie qu’il **ne doit pas être accédé ou modifié directement depuis l’extérieur**, même s’il reste accessible techniquement.
 
-Exemple :
+**Exemple :**
+```py
 
         self._participants = participants
-
+```
 ---
 
 ## Affichage personnalisé avec `__str__`
 
-La méthode spéciale `__str__` permet de **définir ce qui s'affiche** lorsqu'on fait `print(mon_objet)`.
+La méthode spéciale `__str__` permet de **définir ce qui s'affiche** lorsqu'on fait `print(my_object)`.
 
-Exemple dans la classe `Event` :
-
+**Exemple dans la classe `Event` :**
+```py
         def __str__(self):
-            return f"Événement '{self.theme}' le {self.date} à {self.lieu} avec {len(self.participants)} participants"
-
+            return f"Événement '{self.topic}' le {self.date} à {self.location} avec {len(self.participants)} participants"
+```
 Ainsi :
-
+```py
         print(e)
-
+```
 donnera :
-
+```text
         Événement 'IA et société' le 2025-06-15 à Paris avec 2 participants
-
+```
 ---
 
 ## Bonnes pratiques
@@ -91,25 +93,25 @@ donnera :
 ## Exemple complet : classe `Event`
 
 Complétez ou inspirez-vous de ce modèle pour votre propre classe :
-
+```py
         class Event:
-            def __init__(self, date: str, lieu: str, participants: list[str], theme: str, id_: int):
+            def __init__(self, date: str, location: str, participants: list[str], topic: str, event_id: int):
                 self.date = date
-                self.lieu = lieu
+                self.location = location
                 self.participants = participants
-                self.theme = theme
-                self.id = id_
+                self.topic = topic
+                self.event_id = event_id
 
             def __str__(self):
-                return f"Événement '{self.theme}' le {self.date} à {self.lieu} avec {len(self.participants)} participants"
+                return f"Événement '{self.topic}' le {self.date} à {self.location} avec {len(self.participants)} participants"
 
         e = Event("2025-06-15", "Paris", ["Alice", "Bob"], "IA et société", 1)
         print(e)
-
+```
 **Sortie attendue :**
-
+```text
         Événement 'IA et société' le 2025-06-15 à Paris avec 2 participants
-
+```
 ---
 
 ## À faire
@@ -118,6 +120,6 @@ Allez dans le dossier `oop` et observez le fichier `exemple_class.py`.
 
 Créez votre propre classe `Event`, inspirez-vous du modèle ci-dessus, puis :
 
-- ajoutez des méthodes utiles (ex : `ajouter_participant()`, `nombre_participants()`)
+- ajoutez des méthodes utiles (ex : `add_participant()`, `get_number_of_participants()`)
 - testez votre code avec plusieurs événements différents
 - affichez chaque objet à l’aide de `print()`

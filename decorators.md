@@ -21,20 +21,20 @@ Cela permet d’ajouter un comportement supplémentaire **sans modifier le code 
 ---
 
 ### Exemple simple
-
-        def mon_decorateur(fonction):
-            def nouvelle_fonction():
+        ```python
+        def my_decorator(function):
+            def new_function():
                 print("Avant l'appel")
-                fonction()
+                function()
                 print("Après l'appel")
-            return nouvelle_fonction
+            return new_function
 
-        @mon_decorateur
-        def dire_bonjour():
+        @my_decorator
+        def say_hello():
             print("Bonjour !")
 
-        dire_bonjour()
-
+        say_hello()
+        ```
 **Sortie :**
 
         Avant l'appel
@@ -44,19 +44,20 @@ Cela permet d’ajouter un comportement supplémentaire **sans modifier le code 
 ---
 
 ### Écriture équivalente sans `@`
-
-        def mon_decorateur(fonction):
-            def nouvelle_fonction():
+        ```py
+        def my_decorator(function):
+            def new_function():
                 print("Avant l'appel")
-                fonction()
+                function()
                 print("Après l'appel")
-            return nouvelle_fonction
+            return new_function
 
-        def dire_bonjour():
-            print("Bonjour !")
+        def say_hello():
 
-        dire_bonjour = mon_decorateur(dire_bonjour)
-        dire_bonjour()
+        say_hello = my_decorator(say_hello)
+        say_hello()
+        ```
+
 
 
 
@@ -104,104 +105,95 @@ Salut tout le monde!
 
 Pour décorer des fonctions qui prennent des arguments, il faut utiliser `*args` et `**kwargs` dans le wrapper.
 
-```python
-def mon_decorateur(fonction):
-    def wrapper(*args, **kwargs):
-        print("Avant appel")
-        resultat = fonction(*args, **kwargs)
-        print("Après appel")
-        return resultat
-    return wrapper
+**Exemple avec arguments :** 
+ ```py
+        def my_decorator(function):
+            def wrapper(*args, **kwargs):
+                print("Avant appel")
+                result = function(*args, **kwargs)
+                print("Après appel")
+                return result
+            return wrapper
 
-@mon_decorateur
-def additionner(a, b):
-    print(f"Résultat : {a + b}")
-    return a + b
+        @my_decorator
+        def add(a, b):
+            print(f"Résultat : {a + b}")
+            return a + b
 
-additionner(5, 7)
+        add(5, 7)
 ```
-
 **Sortie :**
-```text
-Avant appel
-Résultat : 12
-Après appel
-```
+    ```text
+        Avant appel
+        Résultat : 12
+        Après appel
+    ```
 
 ---
 
 ## 4. Utiliser `functools.wraps`
 
 Quand on écrit un décorateur, il est recommandé d'utiliser `functools.wraps` pour conserver les métadonnées (nom, docstring) de la fonction originale.
+### Utiliser `functools.wraps`
+```py
+        import functools
 
-```python
-import functools
-
-def mon_decorateur(fonction):
-    @functools.wraps(fonction)
-    def wrapper(*args, **kwargs):
-        print("Avant appel")
-        return fonction(*args, **kwargs)
-    return wrapper
+        def my_decorator(function):
+            @functools.wraps(function)
+            def wrapper(*args, **kwargs):
+                print("Avant appel")
+                return function(*args, **kwargs)
+            return wrapper
 ```
-
 
 Sans `@wraps`, le nom de `wrapper` écrase celui de la fonction décorée.
 
-**Exemple sans `@wraps` :**
+## Exemple sans `@wraps` :
+    ``` python  
+        def my_decorator(function):
+            def wrapper(*args, **kwargs):
+                return function(*args, **kwargs)
+            return wrapper
 
-```python
-def mon_decorateur(fonction):
-    def wrapper(*args, **kwargs):
-        return fonction(*args, **kwargs)
-    return wrapper
+        @my_decorator
+        def say_hello():
+            """This function says hello."""
+            print("Bonjour !")
 
-@mon_decorateur
-def dire_bonjour():
-    """Cette fonction dit bonjour."""
-    print("Bonjour !")
-
-print(dire_bonjour.__name__)
-print(dire_bonjour.__doc__)
-```
-
-**Sortie :**
-```text
-wrapper
-None
-```
-
-**Exemple avec `@wraps` :**
-
-```python
-import functools
-
-def mon_decorateur(fonction):
-    @functools.wraps(fonction)
-    def wrapper(*args, **kwargs):
-        return fonction(*args, **kwargs)
-    return wrapper
-
-@mon_decorateur
-def dire_bonjour():
-    """Cette fonction dit bonjour."""
-    print("Bonjour !")
-
-print(dire_bonjour.__name__)
-print(dire_bonjour.__doc__)
-```
+        print(say_hello.__name__)
+        print(say_hello.__doc__)
+    ``` 
 
 **Sortie :**
-```text
-dire_bonjour
-Cette fonction dit bonjour.
-```
+    ``` text 
+        wrapper
+        None
+    ```
+### Exemple avec `@wraps` :**
+    ```py
+        import functools
 
-Le nom `dire_bonjour` est préservé.
+        def my_decorator(function):
+            @functools.wraps(function)
+            def wrapper(*args, **kwargs):
+                return function(*args, **kwargs)
+            return wrapper
 
-La docstring est conservée.
+        @my_decorator
+        def say_hello():
+            """This function says hello."""
+            print("Bonjour !")
 
----
+        print(say_hello.__name__)
+        print(say_hello.__doc__)
+    ```
+
+**Sortie :**
+    ```text
+        say_hello
+        This function says hello.
+    ```
+    
 
 ## 5. Décorateurs intégrés utiles
 
@@ -214,7 +206,7 @@ Python fournit plusieurs décorateurs intégrés :
 **Exemple :**
 
 ```python
-class Cercle:
+class Circle:
     def __init__(self, rayon):
         self._rayon = rayon
 
@@ -223,7 +215,7 @@ class Cercle:
         import math
         return math.pi * (self._rayon ** 2)
 
-c = Cercle(5)
+c = Circle(5)
 print(c.surface)
 ```
 
@@ -239,15 +231,15 @@ print(c.surface)
 Il est possible d'empiler plusieurs décorateurs sur une fonction :
 
 ```python
-@decorateur_1
-@decorateur_2
-@decorateur_3
+@decorator_1
+@decorator_2
+@decorator_3
 fonction()
 ```
 
 Cela équivaut à :
 ```python
-fonction = decorateur_1(decorateur_2(decorateur_3(fonction)))
+fonction = decorator_1(decorator_2(decorator_3(fonction)))
 ```
 
 L'ordre **va de bas en haut**.
@@ -261,15 +253,15 @@ Un décorateur peut également modifier des **classes** entières.
 **Exemple simple :**
 
 ```python
-def ajouter_attribut(cls):
-    cls.attribut_ajoute = "Ajouté!"
-    return cls
+def add_attribute(cls):
+        cls.added_attribute = "Ajouté!"
+        return cls
 
-@ajouter_attribut
-class MaClasse:
+@add_attribute
+class MyClass:
     pass
 
-print(MaClasse.attribut_ajoute)
+print(MyClass.added_attribute)
 ```
 
 **Sortie :**
