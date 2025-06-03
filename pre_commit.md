@@ -136,6 +136,115 @@ git commit -m "Votre message de commit" --no-verify
 - **À noter** : Cette commande doit être utilisée avec précaution et uniquement dans des cas exceptionnels, car elle désactive toutes les protections automatiques mises en place pour garantir la qualité du code.
 
 ---
+##  Test de fonctionnement : Black, Ruff et Pre-Commit sur un fichier existant (`exemple_commit.py`)
+
+Ce test permet de vérifier concrètement le comportement des outils de formatage (`Black`), de linting (`Ruff`) et des hooks Pre-Commit sur un fichier Python mal indenté mais fonctionnel.
+
+---
+
+###  Fichier concerné
+
+Le fichier ciblé est :  
+`commit/exemple_commit.py`  
+Son emplacement exact peut varier selon les machines, mais il est toujours situé dans un sous-dossier `commit/` du projet.
+
+---
+
+###  Étapes à suivre
+
+#### 1. Se placer dans le projet
+
+Se positionner dans le dossier racine du projet (adapter selon le chemin local) :
+
+```bash
+cd /chemin/vers/starter_pack_internship
+```
+
+---
+
+#### 2. Vérifier le contenu du fichier
+
+Afficher son contenu pour voir qu’il est mal présenté :
+
+```bash
+cat commit/exemple_commit.py
+```
+
+---
+
+#### 3. Lancer les outils manuellement
+
+**Formater avec Black** :
+
+```bash
+uvx black commit/exemple_commit.py
+```
+
+**Analyser avec Ruff** :
+
+```bash
+uvx ruff check commit/exemple_commit.py
+```
+
+**Corriger automatiquement avec Ruff** :
+
+```bash
+uvx ruff check commit/exemple_commit.py --fix
+```
+
+---
+
+#### 4. Ajouter le fichier à Git
+
+```bash
+git add commit/exemple_commit.py
+```
+
+---
+
+#### 5. Tenter un commit
+
+```bash
+git commit -m "test commit avec Black et Ruff"
+```
+
+Si les hooks Pre-Commit sont actifs, Black et Ruff s’exécuteront automatiquement.  
+S’ils modifient le fichier ou détectent une erreur, le commit sera bloqué.
+
+---
+
+#### 6. En cas de blocage
+
+Corriger le fichier, re-lancer les outils, puis re-committer :
+
+```bash
+uvx black commit/exemple_commit.py
+uvx ruff check commit/exemple_commit.py --fix
+git add commit/exemple_commit.py
+git commit -m "commit corrigé"
+```
+
+---
+
+#### 7. Commit sans vérification (optionnel)
+
+```bash
+git commit -m "force commit sans vérification" --no-verify
+```
+
+Cette commande bypass les hooks. À utiliser uniquement en connaissance de cause.
+
+---
+
+### ✅ Résultat attendu
+
+- Le fichier est automatiquement formaté par Black  
+- Les erreurs détectées par Ruff sont corrigées  
+- Le commit n’est accepté que lorsque le code est propre  
+- Le fonctionnement des hooks Pre-Commit est validé
+
+---
+
 
 
 # Happy coding! 🚀
