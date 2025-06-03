@@ -15,35 +15,50 @@ Ils sont très utilisés en Python, notamment dans :
 
 ## 1. Qu'est-ce qu'un décorateur ?
 
-Un décorateur est simplement **une fonction qui prend une fonction en paramètre et retourne une nouvelle fonction**.
-
-**Exemple basique** :
-
-```python
-def mon_decorateur(fonction):
-    def nouvelle_fonction():
-        print("Avant l'appel")
-        fonction()
-        print("Après l'appel")
-    return nouvelle_fonction
-
-@mon_decorateur
-def dire_bonjour():
-    print("Bonjour !")
-
-# Appel
-
-dire_bonjour()
-```
-
-**Sortie :**
-```text
-Avant l'appel
-Bonjour !
-Après l'appel
-```
+Un décorateur en Python est une fonction qui prend une autre fonction en paramètre, et qui retourne une fonction enrichie.  
+Cela permet d’ajouter un comportement supplémentaire **sans modifier le code original** de la fonction.
 
 ---
+
+### Exemple simple
+
+        def mon_decorateur(fonction):
+            def nouvelle_fonction():
+                print("Avant l'appel")
+                fonction()
+                print("Après l'appel")
+            return nouvelle_fonction
+
+        @mon_decorateur
+        def dire_bonjour():
+            print("Bonjour !")
+
+        dire_bonjour()
+
+**Sortie :**
+
+        Avant l'appel
+        Bonjour !
+        Après l'appel
+
+---
+
+### Écriture équivalente sans `@`
+
+        def mon_decorateur(fonction):
+            def nouvelle_fonction():
+                print("Avant l'appel")
+                fonction()
+                print("Après l'appel")
+            return nouvelle_fonction
+
+        def dire_bonjour():
+            print("Bonjour !")
+
+        dire_bonjour = mon_decorateur(dire_bonjour)
+        dire_bonjour()
+
+
 
 ## 2. Pourquoi utiliser un décorateur ?
 
