@@ -4,84 +4,84 @@ from IPython import embed
 from functools import cache
 
 @cache
-def f(x):
+def square(x):
     return x**2
 
 class Datacrafter:
-    def __init__(self, prenom: str, nom: str, entreprise: str, interets: Optional[t.List[str]] = None, mail: Optional[str] = None) -> "Datacrafter":
-        self.prenom = prenom
-        self.nom = nom
-        self.mail = mail
-        self.entreprise = entreprise
-        self.interets = interets if interets is not None else []
+    def __init__(self, first_name: str, last_name: str, company: str, interests: Optional[t.List[str]] = None, email: Optional[str] = None) -> "Datacrafter":
+        self.first_name = first_name
+        self.last_name = last_name
+        self.email = email
+        self.company = company
+        self.interests = interests if interests is not None else []
 
     def __repr__(self) -> str:
-        return f"{self.prenom} {self.nom}"
+        return f"{self.first_name} {self.last_name}"
 
-    def _get_mail(self) -> Optional[str]:
-        if self.entreprise == "datacraft":
-            return f"{self.prenom.lower()}.{self.nom.lower()}@datacraft.paris"
+    def _get_email(self) -> Optional[str]:
+        if self.company == "datacraft":
+            return f"{self.first_name.lower()}.{self.last_name.lower()}@datacraft.paris"
         return None
 
     @property
-    def nom_complet(self) -> str:
-        return f"{self.prenom} {self.nom}"
+    def full_name(self) -> str:
+        return f"{self.first_name} {self.last_name}"
 
     @staticmethod
     def greet() -> str:
-        return "Bienvenue"
+        return "Welcome"
 
 
 class DatacraftManager(Datacrafter):
-    def __init__(self, prenom: str, nom: str, entreprise: str, interets: Optional[t.List[str]] = None, mail: Optional[str] = None, stagiaires: Optional[t.List[Datacrafter]] = None):
-        super().__init__(prenom=prenom, nom=nom, mail=mail, entreprise=entreprise, interets=interets)
-        self.stagiaires = {stagiaire.prenom: stagiaire for stagiaire in stagiaires} if stagiaires else None
+    def __init__(self, first_name: str, last_name: str, company: str, interests: Optional[t.List[str]] = None, email: Optional[str] = None, interns: Optional[t.List[Datacrafter]] = None):
+        super().__init__(first_name=first_name, last_name=last_name, email=email, company=company, interests=interests)
+        self.interns = {intern.first_name: intern for intern in interns} if interns else None
 
     def __repr__(self) -> str:
-        stagiaire_list = " - ".join(list(self.stagiaires.keys())) if self.stagiaires else "Aucun stagiaire"
-        return f"{super().__repr__()} - Stagiaires: {stagiaire_list}"
+        intern_list = " - ".join(list(self.interns.keys())) if self.interns else "No intern"
+        return f"{super().__repr__()} - Interns: {intern_list}"
 
-    def print_stagiaires(self):
-        if self.stagiaires:
-            for _, stagiaire in self.stagiaires.items():
-                print(stagiaire)
+    def print_interns(self):
+        if self.interns:
+            for _, intern in self.interns.items():
+                print(intern)
         else:
-            print("Aucun stagiaire")
+            print("No intern")
 
 
-class Membre:
-    def __init__(self, prenom: str, nom: str, entreprise: str, poste: str, numero: str, mail: str) -> "Membre":
-        self.prenom = prenom
-        self.nom = nom
-        self.entreprise = entreprise
-        self.poste = poste
-        self.numero = numero
-        self.mail = mail
+class Member:
+    def __init__(self, first_name: str, last_name: str, company: str, position: str, phone: str, email: str) -> "Member":
+        self.first_name = first_name
+        self.last_name = last_name
+        self.company = company
+        self.position = position
+        self.phone = phone
+        self.email = email
 
     def __repr__(self) -> str:
-        return f"{self.prenom} {self.nom}, {self.poste} chez {self.entreprise}"
+        return f"{self.first_name} {self.last_name}, {self.position} at {self.company}"
 
     @property
     def contact_details(self) -> str:
-        return f"Email: {self.mail}, Téléphone: {self.numero}"
+        return f"Email: {self.email}, Phone: {self.phone}"
 
 
-class Freelance(Membre):
-    def __init__(self, prenom: str, nom: str, numero: str, profession: str, mail: str, specialite: str, client: str):
-        super().__init__(prenom=prenom, nom=nom, entreprise=client, poste=profession, numero=numero, mail=mail)
-        self.specialite = specialite
+class Freelancer(Member):
+    def __init__(self, first_name: str, last_name: str, phone: str, profession: str, email: str, specialty: str, client: str):
+        super().__init__(first_name=first_name, last_name=last_name, company=client, position=profession, phone=phone, email=email)
+        self.specialty = specialty
 
     def __repr__(self) -> str:
-        return f"{self.prenom} {self.nom}, {self.poste}, Spécialité: {self.specialite}, Client: {self.entreprise}"
+        return f"{self.first_name} {self.last_name}, {self.position}, Specialty: {self.specialty}, Client: {self.company}"
 
 
 def main():
-    remy = Datacrafter(prenom="Remy", nom="Gasmi", entreprise="datacraft")
-    thais = Datacrafter(prenom="Thais", nom="Denoyelle", entreprise="datacraft")
-    raphael = DatacraftManager(prenom="Raph", nom="Vienne", entreprise="datacraft", stagiaires=[remy, thais])
+    remy = Datacrafter(first_name="Remy", last_name="Gasmi", company="datacraft")
+    thais = Datacrafter(first_name="Thais", last_name="Denoyelle", company="datacraft")
+    raphael = DatacraftManager(first_name="Raph", last_name="Vienne", company="datacraft", interns=[remy, thais])
 
-    alex = Freelance(prenom="Alex", nom="Martin", numero="0601020304", profession="Développeur", mail="alex.martin@mail.com", specialite="Python", client="TechCorp")
-    julie = Membre(prenom="Julie", nom="Dupont", entreprise="TechCorp", poste="CTO", numero="0605060708", mail="julie.dupont@techcorp.com")
+    alex = Freelancer(first_name="Alex", last_name="Martin", phone="0601020304", profession="Developer", email="alex.martin@mail.com", specialty="Python", client="TechCorp")
+    julie = Member(first_name="Julie", last_name="Dupont", company="TechCorp", position="CTO", phone="0605060708", email="julie.dupont@techcorp.com")
 
     embed()
     return remy, thais, raphael, alex, julie
