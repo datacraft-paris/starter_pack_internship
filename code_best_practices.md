@@ -128,7 +128,7 @@ On recommande via trunk.
 
 Le typing en programmation, aussi appelé typage, est un concept fondamental qui régit comment les données sont classifiées et gérées par notre code.
 
-A MODIFIER permets de structurer les variables et les fonctions
+Le typing permets de structurer les variables et les fonctions
 
 C'est une notion clé dans la collaboration et le codage car elle permet de se faire comprendre de tous et de réaliser des codes accessibles pour tous (= les initiés).
 

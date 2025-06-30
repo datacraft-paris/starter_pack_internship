@@ -5,7 +5,7 @@ from functools import cache
 
 @cache
 def square(x):
-    return x**2
+    return x ** 2
 
 class Datacrafter:
     def __init__(self, first_name: str, last_name: str, company: str, interests: Optional[t.List[str]] = None, email: Optional[str] = None) -> "Datacrafter":
