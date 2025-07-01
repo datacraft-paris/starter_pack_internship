@@ -15,9 +15,10 @@ En pratique, la CI permet essentiellement de :
  - Empêcher de fusionner une branche au `main` tant que les tests échouent.
 
 Par exemple, si un utilisateur fait un fork sur un projet existant pour y apporter ses modifications puis fait un pull-request, la CI vérifie si son projet cloné est conforme. Ainsi, l'auteur du projet original sait immédiatement si il est judicieux de rejeter ses modifications lorsque la CI n'est pas passée correctement.
+
 ---
 
-# 2. Mise en place d'un CI
+## 2. Mise en place d'un CI
 
 Avec GitHub, la CI se configure par le biais d'un fichier `.yaml` au sein d'un répertoire précis à la racine du projet qui est le suivant :
 ```
@@ -31,7 +32,7 @@ Un fichier CI se décompose en plusieurs parties dont les principales qu'on util
  - `on` : Évènements déclanchant la CI
  - `jobs` :  Tâches réalisées après déclanchement
 
-## En-tête
+### En-tête
 L'en-tête contient les champs `name` et `permissions`.
 
 Au sein des permissions, on peut accorder des droits pour ces différentes permissions :
@@ -61,7 +62,7 @@ Chaque permission peut prendre 3 valeurs différentes :
   actions: read
 ```
 
-## Déclancheurs
+### Déclancheurs
 Ce sont les commandes git qui vont annoncer qu'il faut lancer les tâches à réaliser au sein du fichier CI. La syntaxe est la suivante pour des évènements standards :
 ```
 on:
@@ -81,7 +82,7 @@ on:
     branches: [main]
 ```
 
-## Tâches
+### Tâches
 Le champ `jobs` indique ce qu'on souhaite faire une fois qu'un `push` ou un `pull-request` est lancé. La syntaxe classique est la suivante:
 ```
 jobs:
@@ -105,9 +106,27 @@ Les options possibles et les plus utiles d'un job sont:
  - `timeout-minutes`: pour limiter la durée
  - `continue-on-error`: pour ne pas faire échouer un job même s’il échoue
 
+Chaque job contient une clé `steps` qui décrit étape par étape ce qu'un job fait. Chaque étape est spécifique à si on souhaite exécuter une commande shell locale, appeler une action GitHub réutilisable, définir des variables, récupérer du code, installer des dépendances, etc. Les options à utiliser sont différentes:
+
+#### Appeler une action GitHub
+```
+steps:
+  - name: Checkout repository
+    uses: actions/checkout@v4
+```
+
+#### Exécuter une commande
+```
+steps:
+  - name: Lancer un script Python
+    run: python scripts/train.py
+```
+
+#### 
+
 ---
 
-# Exemple complet de CI
+## Exemple complet de CI
 ```
 name: CI
 permissions:
@@ -144,9 +163,4 @@ jobs:
       - name: Run pre-commit
         uses: pre-commit/action@v3.0.1
 ```
-
----
-
-# Conclusion
-
-Des exemples de CI sont fournis par GitHub à ce [lien](https://github.com/actions/starter-workflows/tree/main/ci).
+D'autres exemples fournis par GitHub sont égalements disponibles à ce lien : Des exemples de CI sont fournis par GitHub à ce [lien](https://github.com/actions/starter-workflows/tree/main/ci).
