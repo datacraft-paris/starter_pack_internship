@@ -32,8 +32,8 @@ Un fichier CI se décompose en plusieurs parties dont les principales qu'on util
  - `on` : Évènements déclanchant la CI
  - `jobs` :  Tâches réalisées après déclanchement
 
-### En-tête
-L'en-tête contient les champs `name` et `permissions`.
+### En-tête `name` et `permissions`
+Ce sont les premières lignes du fichier CI. On définit en premier le nom de la CI puis ses permissions.
 
 Au sein des permissions, on peut accorder des droits pour ces différentes permissions :
 | Permission      | Description                                        |
@@ -62,7 +62,7 @@ Chaque permission peut prendre 3 valeurs différentes :
   actions: read
 ```
 
-### Déclancheurs
+### Déclancheurs `on`
 Ce sont les commandes git qui vont annoncer qu'il faut lancer les tâches à réaliser au sein du fichier CI. La syntaxe est la suivante pour des évènements standards :
 ```
 on:
@@ -73,7 +73,7 @@ on:
   ...
 ```
 
-Exemple courant:
+Exemple:
 ```
 on:
   push:
@@ -82,7 +82,7 @@ on:
     branches: [main]
 ```
 
-### Tâches
+### Tâches `jobs`
 Le champ `jobs` indique ce qu'on souhaite faire une fois qu'un `push` ou un `pull-request` est lancé. La syntaxe classique est la suivante:
 ```
 jobs:
@@ -106,13 +106,21 @@ Les options possibles et les plus utiles d'un job sont:
  - `timeout-minutes`: pour limiter la durée
  - `continue-on-error`: pour ne pas faire échouer un job même s’il échoue
 
-Chaque job contient une clé `steps` qui décrit étape par étape ce qu'un job fait. Chaque étape est spécifique à si on souhaite exécuter une commande shell locale, appeler une action GitHub réutilisable, définir des variables, récupérer du code, installer des dépendances, etc. Les options à utiliser sont différentes:
+Chaque job contient une clé `steps` qui décrit étape par étape ce que le job fait. Chaque étape est spécifique à si on souhaite exécuter une commande shell, appeler une action GitHub, définir des variables d'environnement, récupérer du code, installer des dépendances, etc. L'écriture de ses étapes diffèrent légèrement. Les plus utiles sont les suivantes (avec exemple):
 
 #### Appeler une action GitHub
 ```
 steps:
   - name: Checkout repository
     uses: actions/checkout@v4
+```
+#### Passer des paramètres à une action GitHub
+```
+steps:
+  - name: Setup Python
+    uses: actions/setup-python@v5
+    with:
+      python-version-file: .python-version
 ```
 
 #### Exécuter une commande
@@ -122,8 +130,14 @@ steps:
     run: python scripts/train.py
 ```
 
-#### 
-
+#### Définir une variable d'environnement
+```
+steps:
+  - name: Install Python dependencies
+    run: uv sync --locked --dev
+    env:
+      UV_PROJECT_ENVIRONMENT: .venv
+```
 ---
 
 ## Exemple complet de CI
@@ -164,3 +178,9 @@ jobs:
         uses: pre-commit/action@v3.0.1
 ```
 D'autres exemples fournis par GitHub sont égalements disponibles à ce lien : Des exemples de CI sont fournis par GitHub à ce [lien](https://github.com/actions/starter-workflows/tree/main/ci).
+
+---
+## Liens utiles
+ - [Continuous Integration](https://en.wikipedia.org/wiki/Continuous_integration)
+ - [Continuous Integration with GitHub Action](https://docs.github.com/en/actions/concepts/overview/about-continuous-integration-with-github-actions)
+ - [Exemples de CI (GitHub)](https://github.com/actions/starter-workflows/tree/main/ci)
