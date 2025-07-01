@@ -1,0 +1,152 @@
+# Guide Intégration Continue
+
+Ce document explique comment utiliser l'intégration continue (CI) avec GitHub Action permettant d'automatiser des tests avant de pouvoir lancer une fusion qui garantit la fonctionnabilité du code.
+
+---
+
+## 1. Qu'est-ce que GitHub Action et la CI ?
+
+- **GitHub Action** : Plateforme d’automatisation fournie par GitHub qui permet de créer des workflows (suite de tâches ou opérations) déclenchés par des requêtes GitHub (push, pull request, etc.) pour exécuter des scripts, tester le code, compiler, packager, déployer, etc.
+- **CI** : Pratique de développement qui consiste à tester automatiquement le code à chaque fois qu’un développeur pousse une modification sur un dépôt (via un push ou une pull request). L’objectif est de détecter les erreurs dès qu’elles sont introduites, s'assurer que le code reste fonctionnel et de qualité et d'automatiser les vérifications répétitives (tests, lint, build…).
+
+En pratique, la CI permet essentiellement de :
+ - Lancer des tests automatiquement dès le `push` ou le `pull request`.
+ - Vérifier tous les changements afin de ne pas casser la branche principale et ne pas perdre le travail de ses collaborateurs.
+ - Empêcher de fusionner une branche au `main` tant que les tests échouent.
+
+Par exemple, si un utilisateur fait un fork sur un projet existant pour y apporter ses modifications puis fait un pull-request, la CI vérifie si son projet cloné est conforme. Ainsi, l'auteur du projet original sait immédiatement si il est judicieux de rejeter ses modifications lorsque la CI n'est pas passée correctement.
+---
+
+# 2. Mise en place d'un CI
+
+Avec GitHub, la CI se configure par le biais d'un fichier `.yaml` au sein d'un répertoire précis à la racine du projet qui est le suivant :
+```
+.github/workflows/<nom_de_la_ci>.yml
+```
+**Disclaimer**: Les "tabulations" dans un fichier `.yaml` sont impérativement **2 espaces** et non des "vraies" tabulations ou 4 espaces.
+
+Un fichier CI se décompose en plusieurs parties dont les principales qu'on utilisera sont :
+ - `name` : Nom de la CI
+ - `permissions` : Champ contrôlant ce que le workflow peut faire sur le dépôt
+ - `on` : Évènements déclanchant la CI
+ - `jobs` :  Tâches réalisées après déclanchement
+
+## En-tête
+L'en-tête contient les champs `name` et `permissions`.
+
+Au sein des permissions, on peut accorder des droits pour ces différentes permissions :
+| Permission      | Description                                        |
+| --------------- | -------------------------------------------------- |
+| `contents`      | Lire/écrire le contenu du dépôt (ex: push, commit) |
+| `actions`       | Gérer les workflows (démarrer, annuler...)         |
+| `checks`        | Créer/modifier des checks de statut                |
+| `deployments`   | Créer des déploiements                             |
+| `issues`        | Lire/écrire des issues                             |
+| `pull-requests` | Lire/écrire des pull requests                      |
+| `packages`      | Accéder aux GitHub Packages                        |
+| `statuses`      | Créer/modifier des statuts de commit               |
+
+Chaque permission peut prendre 3 valeurs différentes :
+ - `none` : Aucun droit
+ - `read` : Lecture seule
+ - `write` : Lecture + écriture
+
+ Si on omet une permission, ou bien tout simplement qu'on ne précise aucune permission dans le fichier CI, la valeur par défault leur est accordée (`read`).
+
+ Exemple:
+ ```
+ permissions:
+  contents: write
+  pull-requests: write
+  actions: read
+```
+
+## Déclancheurs
+Ce sont les commandes git qui vont annoncer qu'il faut lancer les tâches à réaliser au sein du fichier CI. La syntaxe est la suivante pour des évènements standards :
+```
+on:
+  <commande git>:
+    branches: [<branche>]
+  <commande git>:
+    branches: [<branche>]
+  ...
+```
+
+Exemple courant:
+```
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+```
+
+## Tâches
+Le champ `jobs` indique ce qu'on souhaite faire une fois qu'un `push` ou un `pull-request` est lancé. La syntaxe classique est la suivante:
+```
+jobs:
+  <job>:
+    name: <nom_job>
+    <option>: <valeur_option>
+    steps:
+      - name: <nom_etape1>
+      ...
+
+      - name: <nom_etape2>
+      ...
+
+      etc.
+```
+
+Les options possibles et les plus utiles d'un job sont:
+ - `runs-on`: le système d’exploitation (ubuntu-latest, windows-latest, macos-latest)
+ - `needs`: dépendances entre jobs
+ - `strategy`: tests sur plusieurs versions de Python/Node/etc.
+ - `timeout-minutes`: pour limiter la durée
+ - `continue-on-error`: pour ne pas faire échouer un job même s’il échoue
+
+---
+
+# Exemple complet de CI
+```
+name: CI
+permissions:
+  contents: read
+  actions: read
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  pre-commit:
+    name: Pre-commit Checks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version-file: .python-version
+
+      - name: Install Python dependencies
+        run: uv sync --locked --dev
+        env:
+          UV_PROJECT_ENVIRONMENT: .venv
+
+      - name: Run pre-commit
+        uses: pre-commit/action@v3.0.1
+```
+
+---
+
+# Conclusion
+
+Des exemples de CI sont fournis par GitHub à ce [lien](https://github.com/actions/starter-workflows/tree/main/ci).
