@@ -6,8 +6,9 @@ Ce document explique comment utiliser l'intégration continue (CI) avec GitHub A
 
 ## 1. Qu'est-ce que GitHub Action et la CI ?
 
-- **GitHub Action** : Plateforme d’automatisation fournie par GitHub qui permet de créer des workflows (suite de tâches ou opérations) déclenchés par des requêtes GitHub (push, pull request, etc.) pour exécuter des scripts, tester le code, compiler, packager, déployer, etc.
-- **CI** : Pratique de développement qui consiste à tester automatiquement le code à chaque fois qu’un développeur pousse une modification sur un dépôt (via un push ou une pull request). L’objectif est de détecter les erreurs dès qu’elles sont introduites, s'assurer que le code reste fonctionnel et de qualité et d'automatiser les vérifications répétitives (tests, lint, build…).
+**GitHub Action** : Plateforme d’automatisation fournie par GitHub qui permet de créer des workflows (suite de tâches ou opérations) déclenchés par des requêtes GitHub (push, pull request, etc.) pour exécuter des scripts, tester le code, compiler, packager, déployer, etc.
+
+**CI** : Pratique de développement qui consiste à tester automatiquement le code à chaque fois qu’un développeur pousse une modification sur un dépôt (via un push ou une pull request). L’objectif est de détecter les erreurs dès qu’elles sont introduites, s'assurer que le code reste fonctionnel et de qualité et d'automatiser les vérifications répétitives (tests, lint, build…).
 
 En pratique, la CI permet essentiellement de :
  - Lancer des tests automatiquement dès le `push` ou le `pull request`.
@@ -140,7 +141,7 @@ steps:
 ```
 ---
 
-## Exemple complet de CI
+## 3. Exemple complet de CI
 ```
 name: CI
 permissions:
@@ -177,10 +178,10 @@ jobs:
       - name: Run pre-commit
         uses: pre-commit/action@v3.0.1
 ```
-D'autres exemples fournis par GitHub sont égalements disponibles à ce lien : Des exemples de CI sont fournis par GitHub à ce [lien](https://github.com/actions/starter-workflows/tree/main/ci).
+D'autres exemples sont présents en annexe.
 
 ---
-## Liens utiles
+## Annexe
  - [Continuous Integration](https://en.wikipedia.org/wiki/Continuous_integration)
  - [Continuous Integration with GitHub Action](https://docs.github.com/en/actions/concepts/overview/about-continuous-integration-with-github-actions)
  - [Exemples de CI (GitHub)](https://github.com/actions/starter-workflows/tree/main/ci)
