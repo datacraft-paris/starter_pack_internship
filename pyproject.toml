@@ -1,5 +1,5 @@
 [project]
-name = "kabbalow"
+name = "<nom_de_session>"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
@@ -8,6 +8,8 @@ dependencies = [
     "pre-commit>=4.2.0",
     "python-dotenv>=1.1.1",
 ]
+
+[tool.uv]
 
 [tool.uv.workspace]
 members = [
