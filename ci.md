@@ -191,6 +191,8 @@ Et cliquez sur `Create fork`.
 
 À partir de cette copie, on peut apporter toutes les modifications que l'on veut sans affecter le projet original.
 
+Clonez le sur votre machine.
+
 On va maintenant tester avec un fichier CI qu'on nomera `ci.yaml` placé dans le projet de la manière suivante:
 ```
 .github/workflow/ci.yaml
@@ -198,7 +200,9 @@ On va maintenant tester avec un fichier CI qu'on nomera `ci.yaml` placé dans le
 
 Copiez dans `ci.yaml` le code de la CI exemple précédent. On va tester en appliquant un commit sur un fichier mal formaté en ne vérifiant pas les exigeances de black et ruff.
 
+Au sein du répertoire ci (qui est vide), ajoutez y un fichier `test_ci.py` et copiez le code du fichier `commit/exemple_commit.py` (si le fichier `test_ci.py` est déjà existant, supprimez le et re-créez le).
 
+On va donc l'ajouter le commit
 
 ---
 ## Annexe
