@@ -30,7 +30,7 @@ Le principal se situe sur le [site officiel de Docker](https://docs.docker.com/e
 
 Pour les système Linux, c'est Docker Engine qui est installé (sans interface graphique).
 
-Il faut disposer de l'une de ces 3 versions de Ubuntu en version 64-bit pour procéder à l'installation : 
+Il faut disposer de l'une de ces 3 versions de Ubuntu en version 64-bit pour procéder à l'installation :
 - Ubuntu Oracular 24.10
 - Ubuntu Noble 24.04 (LTS)
 - Ubuntu Jammy 22.04 (LTS)
@@ -58,7 +58,7 @@ On devrait obtenir une sortie similaire à cela:
 ```bash
 Unable to find image 'hello-world:latest' locally
 latest: Pulling from library/hello-world
-e6590344b1a5: Pull complete 
+e6590344b1a5: Pull complete
 Digest: sha256:940c619fbd418f9b2b1b63e25d8861f9cc1b46e3fc8b018ccfe8b78f19b8cc4f
 Status: Downloaded newer image for hello-world:latest
 
@@ -237,7 +237,7 @@ echo $HOME
 ```
 Output: `/home/<nom_de_session>`
 
-On va utiliser le fichier `docker-enterpoint.sh` suivant (il):
+On va utiliser le fichier `docker-enterpoint.sh` suivant (il exécute le programme main avec python):
 ```bash
 #!/bin/sh
 set -e
@@ -302,6 +302,8 @@ On devrait obtenir comme sortie :
 Bytecode compiled 224 files in 91ms
 Hello, Datacrafter !
 ```
+
+Le programme `main.py` n'est qu'un simple affichage mais vous êtes libres de mettre à jour le code et faire des choses plus élaborées.
 
 Félicitation, tu as créé ta première image Docker !
 
