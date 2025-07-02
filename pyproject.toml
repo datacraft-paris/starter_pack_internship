@@ -8,3 +8,8 @@ dependencies = [
     "pre-commit>=4.2.0",
     "python-dotenv>=1.1.1",
 ]
+
+[tool.uv.workspace]
+members = [
+    "starter_pack_internship",
+]
