@@ -187,6 +187,7 @@ D'autres exemples sont présents en annexe.
 Créez une copie de ce dépôt git à l'aide d'un fork sur la page GitHub :
 
 ![fork github](images/fork.png)
+
 Et cliquez sur `Create fork`.
 
 À partir de cette copie, on peut apporter toutes les modifications que l'on veut sans affecter le projet original.
@@ -211,7 +212,9 @@ On va donc l'ajouter en faisant `git add` et `git commit -m "test" --no-verify` 
 La prochaine étape sera d'essayer d'appliquer les modifications sur la branche `<Nom>/tuto-git` à la branche `main` en faisant un `pull request`.
 
 Sur GitHub, rendez vous sur l'onglet **Pull Request** en haut à gauche de votre dépôt:
+
 ![pull request](images/pr.png)
+
 Et créez un nouveau pull request. Il faudra indiquer :
  - `base repository` : le répertoire cible
  - `head repository` : le répertoire source
@@ -225,6 +228,7 @@ Et créez un nouveau pull request. Il faudra indiquer :
  - `compare` : `<Nom>/tuto-git`
 
  Cliquez sur `Create pull request` et on constatera (après le check de la CI):
+ 
  ![pr failed](images/pr_fail.png)
 
 Inversement, si on avait lancer nos commits sans `--no-verify`, pre-commit se serait lancer par dessus et aurait corrigé les erreurs avec black et ruff. Si on test à nouveau en faisant cela, le check de la CI devrait être valide.
