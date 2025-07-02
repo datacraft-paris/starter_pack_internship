@@ -181,6 +181,26 @@ jobs:
 D'autres exemples sont présents en annexe.
 
 ---
+
+## Mise en pratique
+
+Créez une copie de ce dépôt git à l'aide d'un fork sur la page GitHub :
+
+![fork github](images/fork.png)
+Et cliquez sur `Create fork`.
+
+À partir de cette copie, on peut apporter toutes les modifications que l'on veut sans affecter le projet original.
+
+On va maintenant tester avec un fichier CI qu'on nomera `ci.yaml` placé dans le projet de la manière suivante:
+```
+.github/workflow/ci.yaml
+```
+
+Copiez dans `ci.yaml` le code de la CI exemple précédent. On va tester en appliquant un commit sur un fichier mal formaté en ne vérifiant pas les exigeances de black et ruff.
+
+
+
+---
 ## Annexe
  - [Continuous Integration](https://en.wikipedia.org/wiki/Continuous_integration)
  - [Continuous Integration with GitHub Action](https://docs.github.com/en/actions/concepts/overview/about-continuous-integration-with-github-actions)
