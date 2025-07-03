@@ -1,3 +1,4 @@
 #!/bin/sh
 set -e
-exec uv run python -m main
+ls /app
+exec uv run python -m docker.main

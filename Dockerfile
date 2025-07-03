@@ -15,7 +15,7 @@ RUN --mount=type=cache,target=/root/.cache/uv \
     uv sync --no-install-project --no-dev
 ENV PATH="/app/.venv/bin:$PATH"
 
-COPY docker /app
+COPY docker /app/docker
 
 # Exposer le port 8000 pour FastAPI
 EXPOSE 8000
