@@ -30,7 +30,7 @@ Le principal se situe sur le [site officiel de Docker](https://docs.docker.com/e
 
 Pour les système Linux, c'est Docker Engine qui est installé (sans interface graphique).
 
-Il faut disposer de l'une de ces 3 versions de Ubuntu en version 64-bit pour procéder à l'installation : 
+Il faut disposer de l'une de ces 3 versions de Ubuntu en version 64-bit pour procéder à l'installation :
 - Ubuntu Oracular 24.10
 - Ubuntu Noble 24.04 (LTS)
 - Ubuntu Jammy 22.04 (LTS)
@@ -50,15 +50,15 @@ Output:
 `Docker version 28.3.0, build 38b7060`
 ```
 
-On peut également tester de la manière suivante:
+On peut également tester de la manière suivante (on peut ajouter un `sudo` au cas où cela ne passe pas):
 ```
-sudo docker run hello-world
+docker run hello-world
 ```
 On devrait obtenir une sortie similaire à cela:
 ```bash
 Unable to find image 'hello-world:latest' locally
 latest: Pulling from library/hello-world
-e6590344b1a5: Pull complete 
+e6590344b1a5: Pull complete
 Digest: sha256:940c619fbd418f9b2b1b63e25d8861f9cc1b46e3fc8b018ccfe8b78f19b8cc4f
 Status: Downloaded newer image for hello-world:latest
 
@@ -208,12 +208,104 @@ D'autres exemples sont présents en annexe.
 
 ### Exemple d'arborescence d'un projet avec Dockerfile
 ```
-mon-projet/
+projet/
 ├── main.py
 ├── pyproject.toml
 ├── uv.lock
 └── Dockerfile
 ```
+
+---
+
+## Mise en pratique
+
+On dispose d'un projet dont l'arborescence correspond à cela (en prenant en compte uniquement les fichiers qui nous intéressent):
+```
+projet/
+├── Dockerfile
+├── docker-entrypoint.sh
+├── pyproject.toml
+├── uv.lock
+└── docker/
+    └── main.py
+```
+**Disclaimer 1** : tu as impérativement besoin des fichiers `pyproject.toml` et `uv.lock` qui décrivent les dépendances et qui sont exploitées dans le dockerfile. Ils sont générées grâce à uv (cf Section [Setup Environnement](./environment_setup.md))
+
+**Disclaimer 2** : au sein du `pyproject.toml` il faut impérativement que le champ `name` dans `[project]` ait pour valeur le nom de ta session. Si tu ne la connais pas, tu peux la trouver en faisant :
+```bash
+echo $HOME
+```
+Output: `/home/<nom_de_session>`
+
+On va utiliser le fichier `docker-enterpoint.sh` suivant (il exécute le programme main avec python):
+```bash
+#!/bin/sh
+set -e
+exec uv run python -m main
+```
+
+Et le fichier Dockerfile :
+```Dockerfile
+FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim
+
+WORKDIR /app
+
+# Copier le projet
+COPY pyproject.toml uv.lock ./
+
+ENV UV_COMPILE_BYTECODE=1 \
+    UV_FROZEN=1 \
+    UV_LINK_MODE=copy \
+    UV_NO_INSTALLER_METADATA=1 \
+    VIRTUAL_ENV=/app/.venv \
+    PYTHONUNBUFFERED=1
+RUN --mount=type=cache,target=/root/.cache/uv \
+    uv sync --no-install-project --no-dev
+ENV PATH="/app/.venv/bin:$PATH"
+
+COPY docker /app
+
+# Exposer le port 8000 pour FastAPI
+EXPOSE 8000
+
+# Lancer FastAPI
+COPY docker-entrypoint.sh ./docker-entrypoint.sh
+RUN chmod +x ./docker-entrypoint.sh
+
+ENTRYPOINT ["./docker-entrypoint.sh"]
+```
+
+Étape par étape, l'éxecution du dockerfile va :
+ 1. Créer une image légère pour Python avec `FROM`
+ 2. Définir le répertoire de travail vers `/app` avec `WORKDIR`
+ 3. Copier les dépendances `uv.lock` et `pyprojet.toml` dans l'image Docker avec `COPY`
+ 4. Définir des variables d'environnement pour `uv` et Python avec `ENV`
+ 5. Installer les dépendances avec `RUN`
+ 6. Ajoute l’environnement virtuel créé à la variable `PATH`
+ 7. Copier le dossier `docker/` (et donc `main.py`) dans l'image
+ 8. Déclarer qu'on se place sur le port 8000 (pour FastAPI) avec `EXPOSE`
+ 9. Copier et rendre exécutable le script shell
+ 10. Rendre ce script comme point d'entrée du conteneur, c'est ce qui sera exécuté par défaut quand on fera `docker run`
+
+On va donc construire notre image en lançant la commande
+```bash
+docker build -t <nom_image_docker> .
+```
+
+Et l'exécuter avec
+```bash
+docker run <nom_image_docker>
+```
+
+On devrait obtenir comme sortie :
+```bash
+Bytecode compiled 224 files in 91ms
+Hello, Datacrafter !
+```
+
+Le programme `main.py` n'est qu'un simple affichage mais vous êtes libres de mettre à jour le code et faire des choses plus élaborées.
+
+Félicitation, tu as créé ta première image Docker !
 
 ---
 

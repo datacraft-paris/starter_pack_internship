@@ -181,6 +181,61 @@ jobs:
 D'autres exemples sont présents en annexe.
 
 ---
+
+## Mise en pratique
+
+Créez une copie de ce dépôt git à l'aide d'un fork sur la page GitHub :
+
+![fork github](images/fork.png)
+
+Et cliquez sur `Create fork`.
+
+À partir de cette copie, on peut apporter toutes les modifications que l'on veut sans affecter le projet original.
+
+Clonez le sur votre machine.
+
+On va créer une nouvelle branche à ce dépôt que l'on nomera `<Nom\>/tuto-git` par exemple.
+
+On va maintenant tester avec un fichier CI qu'on nomera `ci.yaml` placé dans le projet de la manière suivante:
+```
+.github/workflows/ci.yaml
+```
+
+Copiez dans `ci.yaml` le code de la CI exemple précédent. On va tester en appliquant un commit sur un fichier mal formaté en ne vérifiant pas les exigeances de black et ruff.
+
+Au sein du répertoire ci (qui est vide), ajoutez y un fichier `test_ci.py` et copiez le code du fichier `commit/exemple_commit.py` (si le fichier `test_ci.py` est déjà existant, créez en un autre avec un autre nom).
+
+En théorie, ce fichier ne vérifie pas le pre-commit comme vu dans la section [Pre-commit](./pre_commit.md)
+
+On va donc l'ajouter en faisant `git add` et `git commit -m "test" --no-verify` afin de bypasser le pre-commit. Tout devrait passer et on peut maintenant faire un `git push` sur cette branche.
+
+La prochaine étape sera d'essayer d'appliquer les modifications sur la branche `<Nom>/tuto-git` à la branche `main` en faisant un `pull request`.
+
+Sur GitHub, rendez vous sur l'onglet **Pull Request** en haut à gauche de votre dépôt:
+
+![pull request](images/pr.png)
+
+Et créez un nouveau pull request. Il faudra indiquer :
+ - `base repository` : le répertoire cible
+ - `head repository` : le répertoire source
+ - `base` : la branche cible du répertoire cible
+ - `compare` : la branche source du répertoire source
+
+ En somme, cela va comparer `compare` au `base` et vérifier si la fusion des deux sur `base` est possible.
+
+ Dans notre cas le `base repository` et le `head repository` est le même (c'est le projet forké). On aura donc :
+ - `base` : `main`
+ - `compare` : `<Nom>/tuto-git`
+
+ Cliquez sur `Create pull request` et on constatera (après le check de la CI):
+ 
+ ![pr failed](images/pr_fail.png)
+
+Inversement, si on avait lancer nos commits sans `--no-verify`, pre-commit se serait lancer par dessus et aurait corrigé les erreurs avec black et ruff. Si on test à nouveau en faisant cela, le check de la CI devrait être valide.
+
+On peut faire un travail analogue pour vérifier avec la commande `push` avec un fichier mal formaté selon black et ruff.
+
+---
 ## Annexe
  - [Continuous Integration](https://en.wikipedia.org/wiki/Continuous_integration)
  - [Continuous Integration with GitHub Action](https://docs.github.com/en/actions/concepts/overview/about-continuous-integration-with-github-actions)

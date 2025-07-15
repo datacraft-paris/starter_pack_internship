@@ -1,0 +1,17 @@
+[project]
+name = "<nom_de_session>"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "pre-commit>=4.2.0",
+    "python-dotenv>=1.1.1",
+]
+
+[tool.uv]
+
+[tool.uv.workspace]
+members = [
+    "starter_pack_internship",
+]
